@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw2-web  # Sets Deployment name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+
+      - name: web 
+        image: al7er/todo_hw2_kuber
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports: 
+          - containerPort: 3000
+        env:
+        - name: PGHOST
+          value: db.default.svc.cluster.local
+        - name: PGUSER
+          value: postgres
+        - name: PGDATABASE
+          value: todos
